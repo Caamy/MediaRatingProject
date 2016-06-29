@@ -10,11 +10,7 @@
 <!-- Compiled and minified JavaScript -->
 <script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
 <script th:src="@{/js/materialize.min.js}"></script>
-<script>
-	$(document).ready(function() {
-		$('.button-collapse').sideNav();
-	});
-</script>
+<script th:src="@{/js/general.js}"></script>
 </head>
 <body>
   <header>
@@ -23,44 +19,57 @@
         <a href="#!" class="brand-logo">Logo</a>
         <ul id="slide-out" class="side-nav fixed">
           <li class="bold"><a href="#" class="waves-effect waves-orange">About</a></li>
-      <li class="bold"><a href="#" class="waves-effect waves-orange">Getting Started</a></li>
-      <li class="no-padding">
+          <li class="bold"><a href="#" class="waves-effect waves-orange">Getting Started</a></li>
+          <li class="bold"><a href="#" class="waves-effect waves-orange">
+          <i class="material-icons left">search</i>Search Media</a></li>
+          <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
-          <li><a class="collapsible-header  waves-effect waves-orange">Movies</a>
+          <li><a class="collapsible-header waves-effect waves-orange">
+          <i class="material-icons">theaters</i>Movies</a>
             <div class="collapsible-body">
               <ul>
-                <li><a href="#">Favorites</a></li>
-                <li><a href="#">Unwatched</a></li>
-                <li><a href="#">Watched</a></li>
-                <li><a href="#">Search</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">favorite</i>Favorites</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">watch_later</i>Unwatched</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">remove_red_eye</i>Watched</a></li>
               </ul>
             </div></li>
-          <li class="bold"><a class="collapsible-header waves-effect waves-orange">TV
-              Shows</a>
+          <li class="bold"><a class="collapsible-header waves-effect waves-orange">
+          <i class="material-icons">tv</i>TV Shows</a>
             <div class="collapsible-body">
               <ul>
-                <li><a href="#">Favorites</a></li>
-                <li><a href="#">Unwatched</a></li>
-                <li><a href="#">Watched</a></li>
-                <li><a href="#">Search</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">favorite</i>Favorites</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">watch_later</i>Unwatched</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">remove_red_eye</i>Watched</a></li>
               </ul>
             </div></li>
-          <li class="bold"><a class="collapsible-header  waves-effect waves-orange">Books</a>
+          <li class="bold"><a class="collapsible-header  waves-effect waves-orange">
+          <i class="material-icons">books</i>Books</a>
             <div class="collapsible-body">
               <ul>
-                <li><a href="#">Favorites</a></li>
-                <li><a href="#">Unread</a></li>
-                <li><a href="#">Read</a></li>
-                <li><a href="#">Search</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">favorite</i>Favorites</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">watch_later</i>Unread</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">remove_red_eye</i>Read</a></li>
               </ul>
             </div></li>
-          <li class="bold"><a class="collapsible-header  waves-effect waves-orange">Fictions</a>
+          <li class="bold"><a class="collapsible-header  waves-effect waves-orange">
+          <i class="material-icons">library_books</i>Fictions</a>
             <div class="collapsible-body">
               <ul>
-                <li><a href="#">Favorites</a></li>
-                <li><a href="#">Unread</a></li>
-                <li><a href="#">Read</a></li>
-                <li><a href="#">Search</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">favorite</i>Favorites</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">watch_later</i>Unwatched</a></li>
+                <li><a class="waves-effect waves-orange" href="#">
+                <i class="small material-icons right">remove_red_eye</i>Watched</a></li>
               </ul>
             </div></li>
         </ul>
