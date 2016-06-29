@@ -10,4 +10,5 @@ public class Home {
 	public String getIndex(){
 		return "home";
 	}
+	
 }
