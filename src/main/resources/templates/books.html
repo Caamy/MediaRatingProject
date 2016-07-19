@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Books</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" th:href="@{/css/materialize.min.css}" />
+<link rel="stylesheet" th:href="@{/css/books.css}" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<!-- Compiled and minified JavaScript -->
+<script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+<script th:src="@{/js/materialize.min.js}"></script>
+<script th:src="@{/js/general.js}"></script>
+<script th:src="@{/js/books.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/nav :: navbar"></div>
+  
+<main>
+  <div class="container">
+        <div id="structure" class="section scrollspy">
+          <h4>Books</h4>
+        </div>
+        
+        <ul class="collection with-header">
+          <li class="collection-header"><h5>Add a new book</h5></li>
+          <li class="collection-item">
+            <div class="switch">
+              <label>
+                By Isbn
+                <input id="bookSwitch" type="checkbox"/>
+                <span class="lever"></span>
+                By hand
+              </label>
+            </div>
+          <div id="addingBookChoice">
+            <div class="row">
+              <div class="input-field col s10">
+                <i class="material-icons prefix">search</i>
+                <input id="isbn" type="text" class="validate"/>
+                <label for="isbn">Isbn</label>
+              </div>
+              <a id="okIsbn" class="waves-effect waves-light btn">OK</a>
+            </div>
+          </div></li>
+        </ul>
+            
+        
+    </div>
+  </main>
+</body>
+</html>
