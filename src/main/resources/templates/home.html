@@ -13,75 +13,9 @@
 <script th:src="@{/js/general.js}"></script>
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="container">
-        <a href="#!" class="brand-logo">Logo</a>
-        <ul id="slide-out" class="side-nav fixed">
-          <li class="bold"><a href="#" class="waves-effect waves-orange">About</a></li>
-          <li class="bold"><a href="#" class="waves-effect waves-orange">Getting Started</a></li>
-          <li class="bold"><a href="#" class="waves-effect waves-orange">
-          <i class="material-icons left">search</i>Search Media</a></li>
-          <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-          <li><a class="collapsible-header waves-effect waves-orange">
-          <i class="material-icons">theaters</i>Movies</a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">favorite</i>Favorites</a></li>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">watch_later</i>Unwatched</a></li>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">remove_red_eye</i>Watched</a></li>
-              </ul>
-            </div></li>
-          <li class="bold"><a class="collapsible-header waves-effect waves-orange">
-          <i class="material-icons">tv</i>TV Shows</a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">favorite</i>Favorites</a></li>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">watch_later</i>Unwatched</a></li>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">remove_red_eye</i>Watched</a></li>
-              </ul>
-            </div></li>
-          <li class="bold"><a class="collapsible-header  waves-effect waves-orange">
-          <i class="material-icons">books</i>Books</a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">favorite</i>Favorites</a></li>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">watch_later</i>Unread</a></li>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">remove_red_eye</i>Read</a></li>
-              </ul>
-            </div></li>
-          <li class="bold"><a class="collapsible-header  waves-effect waves-orange">
-          <i class="material-icons">library_books</i>Fictions</a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">favorite</i>Favorites</a></li>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">watch_later</i>Unwatched</a></li>
-                <li><a class="waves-effect waves-orange" href="#">
-                <i class="small material-icons right">remove_red_eye</i>Watched</a></li>
-              </ul>
-            </div></li>
-        </ul>
-      </li>
-        </ul>
-        <a href="#" data-activates="slide-out" class="button-collapse"><i
-          class="material-icons">menu</i></a>
-      </div>
-    </nav>
-  </header>
+<div th:replace="fragments/nav :: navbar"></div>
   
-  <main>
+<main>
   <div class="container">
         <div id="structure" class="section scrollspy">
           <h5>Introduction</h5>
