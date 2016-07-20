@@ -17,7 +17,7 @@
   <header th:fragment="navbar">
     <nav>
       <div class="container">
-        <a href="#!" class="brand-logo">Logo</a>
+        <a th:href="@{/}" class="brand-logo">Logo</a>
         <ul id="slide-out" class="side-nav fixed">
           <li><a href="#" class="waves-effect waves-orange">About</a></li>
           <li><a href="#" class="waves-effect waves-orange">Getting Started</a></li>
@@ -26,8 +26,8 @@
           </a></li>
           <li>
             <ul class="collapsible" data-collapsible="accordion">
-              <li><a class="collapsible-header waves-effect waves-orange"> <i
-                  class="material-icons">theaters</i>Movies
+              <li><a id="moviesCollapse" th:href="@{/movies}" class="waves-effect waves-orange"> <i
+                  class="material-icons left">theaters</i>Movies
               </a>
                 <div class="collapsible-body">
                   <ul>
@@ -42,8 +42,8 @@
                     </a></li>
                   </ul>
                 </div></li>
-              <li><a class="collapsible-header waves-effect waves-orange"> <i
-                  class="material-icons">tv</i>TV Shows
+              <li><a id="showsCollapse" th:href="@{/tvShows}" class="waves-effect waves-orange"> <i
+                  class="material-icons left">tv</i>TV Shows
               </a>
                 <div class="collapsible-body">
                   <ul>
@@ -58,11 +58,11 @@
                     </a></li>
                   </ul>
                 </div></li>
-              <li><a th:href="@{/books}" class="collapsible-header  waves-effect waves-orange"> <i
-                  class="material-icons">books</i>Books
+              <li><a id="booksCollapse" th:href="@{/books}" class=" waves-effect waves-orange"> 
+                <i class="material-icons left">import_contacts</i>Books
               </a>
                 <div class="collapsible-body">
-                  <ul>
+                  <ul >
                     <li><a class="waves-effect waves-orange" href="#"> <i
                         class="small material-icons right">favorite</i>Favorites
                     </a></li>
@@ -74,8 +74,8 @@
                     </a></li>
                   </ul>
                 </div></li>
-              <li><a class="collapsible-header  waves-effect waves-orange"> <i
-                  class="material-icons">library_books</i>Fictions
+              <li><a id="ficsCollapse" th:href="@{/fictions}" class="waves-effect waves-orange"> <i
+                  class="material-icons left">library_books</i>Fictions
               </a>
                 <div class="collapsible-body">
                   <ul>

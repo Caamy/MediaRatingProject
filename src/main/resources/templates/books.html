@@ -14,39 +14,48 @@
 <script th:src="@{/js/books.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/nav :: navbar"></div>
-  
-<main>
+  <div th:replace="fragments/nav :: navbar"></div>
+
+  <main>
   <div class="container">
-        <div id="structure" class="section scrollspy">
-          <h4>Books</h4>
-        </div>
-        
-        <ul class="collection with-header">
-          <li class="collection-header"><h5>Add a new book</h5></li>
-          <li class="collection-item">
-            <div class="switch">
-              <label>
-                By Isbn
-                <input id="bookSwitch" type="checkbox"/>
-                <span class="lever"></span>
-                By hand
-              </label>
-            </div>
-          <div id="addingBookChoice">
-            <div class="row">
-              <div class="input-field col s10">
-                <i class="material-icons prefix">search</i>
-                <input id="isbn" type="text" class="validate"/>
-                <label for="isbn">Isbn</label>
-              </div>
-              <a id="okIsbn" class="waves-effect waves-light btn">OK</a>
-            </div>
-          </div></li>
-        </ul>
-            
-        
+    <div id="structure" class="section scrollspy">
+      <h4>Books</h4>
     </div>
+
+    <ul class="collection with-header">
+      <li class="collection-header"><h5>Add a new book</h5></li>
+      <li class="collection-item">
+        <div class="switch">
+          <label> By Isbn <input id="bookSwitch" type="checkbox" /> <span
+            class="lever"></span> By hand
+          </label>
+        </div>
+        <div id="addingBookChoice">
+          <div class="row">
+            <div class="input-field col s10">
+              <i class="material-icons prefix">search</i> <input id="isbn" type="text"
+                class="validate" /> <label for="isbn">Isbn</label>
+            </div>
+            <a id="okIsbn" class="waves-effect waves-light btn">OK</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Disagree</a>
+      </div>
+    </div>
+
+  </div>
   </main>
 </body>
 </html>

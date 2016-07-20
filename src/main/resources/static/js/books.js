@@ -1,36 +1,17 @@
 $(document).ready(function() {
 	
-	// Affichage du formulaire en fonction du switch
-	$("#bookSwitch").on("click", function(){
-		if($(this).prop('checked') == false){
-			var addingChoice = '<div class="row">' 
-            + '<div class="input-field col s10">' 
-            + '<i class="material-icons prefix">search</i>' 
-            + '<input id="isbn" type="text" class="validate"/>'
-            + '<label for="isbn">Isbn</label></div>'
-            + '<a id="okIsbn" class="waves-effect waves-light btn">OK</a></div>'
-            $("#addingBookChoice").html(addingChoice);
-            
-		} else {
-			var addingChoice = '<div class="row">' 
-	            + '<div class="input-field col s2">' 
-	            + '<input id="isbn" type="text" class="validate"/>'
-	            + '<label for="isbn">Isbn</label></div>'
-	            + '<div class="input-field col s4">' 
-	            + '<input id="title" type="text" class="validate"/>'
-	            + '<label for="title">Title</label></div>'
-	            + '<div class="input-field col s4">' 
-	            + '<input id="authors" type="text" class="validate"/>'
-	            + '<label for="authors">Authors</label></div>'
-	            + '<div class="input-field col s2">' 
-	            + '<input id="publishedDate" type="text" class="validate"/>'
-	            + '<label for="publishedDate">Published date</label></div></div>'
-	            + '<a id="okCustom" class="waves-effect waves-light btn">OK</a>'
-			$("#addingBookChoice").html(addingChoice);
-		}
-
-	});
+	// Collapse books
+	$("#booksCollapse").addClass("collapsible-header active");
+	$(".collapsible").collapsible({accordion: false});
 	
+	// Affichage du formulaire en fonction du switch
+	displaySwitchOption();
+	
+	// Chercher dans l'API google
+	$("#okIsbn").click(function(){
+		console.log("click");
+		getDataFromGoogleAPI($("#isbn").val());
+	});
 	
 	var data = {};
 	data["isbn"] = "0123456789";
@@ -48,35 +29,75 @@ $(document).ready(function() {
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 	    }
-		
+	});
 });
-	
-	
-	
-	
-//	console.log("test");
-//    $.ajax({ 
-//	     type: "GET",
-//	     dataType: "json",
-//	     url: "https://www.googleapis.com/books/v1/volumes?q=isbn:9781781101063",
-//	         success: function(data){      
-//	        
-//	        	var book = data.items[0].volumeInfo;
-//	        	var dataPost = {};
-//	        	dataPost["isbn"] = book.industryIdentifiers[0].identifier;
-//	        	dataPost["title"] = book.title;
-//	        	dataPost["authors"] = book.authors[0];	
-//				dataPost["publishedDate"] = book.publishedDate;
-//				
-//				
-//				
-//				
-//				
-//				
-//	         }
-//    
-//    
-//    
-//	     });
-	
-});
+
+/**
+ * Affiche en fonction du switch les informations pour la recherche de l'isbn
+ * ou la création d'un livre à partir de 0
+ */
+function displaySwitchOption(){
+	$("#bookSwitch").on("click", function(){
+		if($(this).prop('checked') == false){
+			var addingChoice = '<div class="row">' 
+            + '<div class="input-field col s10">' 
+            + '<i class="material-icons prefix">search</i>' 
+            + '<input id="isbn" type="text" class="validate"/>'
+            + '<label for="isbn">Isbn</label></div>'
+            + '<a id="okIsbn" class="waves-effect waves-light btn">OK</a></div>';
+            $("#addingBookChoice").html(addingChoice);
+            
+            $("#okIsbn").click(function(){
+        		getDataFromGoogleAPI($("#isbn").val());
+        	});
+            
+		} else {
+			var addingChoice = '<div class="row">' 
+	            + '<div class="input-field col s2">' 
+	            + '<input id="isbn" type="text" class="validate"/>'
+	            + '<label for="isbn">Isbn</label></div>'
+	            + '<div class="input-field col s4">' 
+	            + '<input id="title" type="text" class="validate"/>'
+	            + '<label for="title">Title</label></div>'
+	            + '<div class="input-field col s4">' 
+	            + '<input id="authors" type="text" class="validate"/>'
+	            + '<label for="authors">Authors</label></div>'
+	            + '<div class="input-field col s2">' 
+	            + '<input id="publishedDate" type="text" class="validate"/>'
+	            + '<label for="publishedDate">Published date</label></div>'
+	            + '<a id="okCustom" class="waves-effect waves-light btn">OK</a></div>';
+			$("#addingBookChoice").html(addingChoice);
+		}
+	});	
+}
+
+/**
+ * Recherche dans l'API google les informations du livre renseigné par son isbn
+ * @param isbn
+ */
+function getDataFromGoogleAPI(isbn){
+	var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
+	$.ajax({ 
+	     type: "GET",
+	     dataType: "json",
+	     url: url,
+	     success: function(data){      	        
+	        	var book = data.items[0].volumeInfo;
+	        	var dataPost = {};
+	        	dataPost["isbn"] = book.industryIdentifiers[0].identifier;
+	        	dataPost["title"] = book.title;
+	        	dataPost["authors"] = book.authors[0];	
+				dataPost["publishedDate"] = book.publishedDate;
+				console.log(dataPost);
+				displayDataFromAPIintoModal(data);
+	     }
+	});
+};
+
+/**
+ * Display the modal with the information regarding the book
+ * @param data
+ */
+function displayDataFromAPIintoModal(data){
+	  $('#modal1').openModal();         
+}
