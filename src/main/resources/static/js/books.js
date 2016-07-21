@@ -76,22 +76,29 @@ function displaySwitchOption(){
  * @param isbn
  */
 function getDataFromGoogleAPI(isbn){
-	var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
-	$.ajax({ 
-	     type: "GET",
-	     dataType: "json",
-	     url: url,
-	     success: function(data){      	        
-	        	var book = data.items[0].volumeInfo;
-	        	var dataPost = {};
-	        	dataPost["isbn"] = book.industryIdentifiers[0].identifier;
-	        	dataPost["title"] = book.title;
-	        	dataPost["authors"] = book.authors[0];	
-				dataPost["publishedDate"] = book.publishedDate;
-				console.log(dataPost);
-				displayDataFromAPIintoModal(data);
-	     }
-	});
+	if(isbn != "") {
+		var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
+		$.ajax({ 
+		     type: "GET",
+		     dataType: "json",
+		     url: url,
+		     success: function(data){      	        
+		        	var book = data.items[0].volumeInfo;
+		        	var dataPost = {};
+		        	dataPost["isbn"] = book.industryIdentifiers[0].identifier;
+		        	dataPost["title"] = book.title;
+		        	dataPost["authors"] = book.authors[0];	
+					dataPost["publishedDate"] = book.publishedDate;
+					console.log(dataPost);
+					displayDataFromAPIintoModal(data);
+		     }
+		});
+	} else {
+		var tag = '<div class="chip">'
+	    + 'Isbn cannot be empty. Please type a number in.'
+	    + '<i class="material-icons">close</i></div>';
+		$("#isbn").after(tag);
+	}
 };
 
 /**
@@ -99,5 +106,12 @@ function getDataFromGoogleAPI(isbn){
  * @param data
  */
 function displayDataFromAPIintoModal(data){
-	  $('#modal1').openModal();         
+	var book = data.items[0].volumeInfo;
+	$("#modalTitle").html(book.title);
+	console.log(book.title);
+	var content = "<img src='" + book.imageLinks.thumbnail + "' />"
+		+ "<p> Authors : " + book.authors + "</p>";
+	
+	$("#modalContent").html(content);
+	$('#modal1').openModal();         
 }

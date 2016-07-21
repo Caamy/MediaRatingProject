@@ -3,3 +3,9 @@
 .switch {
 	padding-bottom:8px;
 }
+
+.chip {
+	margin-left: 8%;
+	background-color:#ee6e73;
+	color:#fff
+}
