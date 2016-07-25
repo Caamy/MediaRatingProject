@@ -1,11 +1,17 @@
 @import url(general.css);
 
-.switch {
-	padding-bottom:8px;
-}
-
 .chip {
 	margin-left: 8%;
 	background-color:#ee6e73;
 	color:#fff
+}
+
+#imgBook  {
+	float : left;
+	margin-right : 15px;
+	margin-left : 15px;
+}
+
+.switch {
+	padding-bottom:8px;
 }

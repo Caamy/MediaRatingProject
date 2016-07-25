@@ -34,7 +34,7 @@ public class BooksController {
 	@RequestMapping(value = "books/addNewBook", method= RequestMethod.POST)
 	public String save(@RequestBody Books book){
 		System.out.println(book);
-		//bookRepo.save(book);
+		bookRepo.save(book);
 		return null;
 	}
 	

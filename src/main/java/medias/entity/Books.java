@@ -15,18 +15,18 @@ public class Books {
 	
 	private String title;
 	private String[] authors;
-	private String publishDate;
+	private String publishedDate;
 	private float ratings;
 	private String note;
 	
 	// Créér un constructeur par défaut pour le POST avec JQuery $.ajax
 	public Books(){}
 		
-	public Books(String isbn, String title, String[] authors, String publishDate) {
+	public Books(String isbn, String title, String[] authors, String publishedDate) {
 		this.isbn = isbn;
 		this.title = title;
 		this.authors = authors;
-		this.publishDate = publishDate;
+		this.publishedDate = publishedDate;
 		
 	}
 
@@ -54,12 +54,12 @@ public class Books {
 		this.authors = authors;
 	}
 
-	public String getPublishDate() {
-		return publishDate;
+	public String getPublishedDate() {
+		return publishedDate;
 	}
 
-	public void setPublishDate(String publishDate) {
-		this.publishDate = publishDate;
+	public void setPublishDate(String publishedDate) {
+		this.publishedDate = publishedDate;
 	}
 	
 	
@@ -81,8 +81,8 @@ public class Books {
 
 	@Override
 	public String toString() {
-		return "Books [isbn=" + isbn + ", title=" + title + ", authors=" + Arrays.toString(authors) + ", publishDate="
-				+ publishDate + "]";
+		return "Books [isbn=" + isbn + ", title=" + title + ", authors=" + Arrays.toString(authors) + ", publishedDate="
+				+ publishedDate + "]";
 	}
 	
 	

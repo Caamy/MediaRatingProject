@@ -9,27 +9,9 @@ $(document).ready(function() {
 	
 	// Chercher dans l'API google
 	$("#okIsbn").click(function(){
-		console.log("click");
 		getDataFromGoogleAPI($("#isbn").val());
 	});
-	
-	var data = {};
-	data["isbn"] = "0123456789";
-	data["title"] = "TestTitre";
-	data["authors"] = ["TestAuteur"];	
-	data["publishDate"] = "2015-05-02";
 
-	$.ajax({
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        url: "addNewBook",
-        data: JSON.stringify(data),
-        success : function(data) {
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-	    }
-	});
 });
 
 /**
@@ -82,15 +64,22 @@ function getDataFromGoogleAPI(isbn){
 		     type: "GET",
 		     dataType: "json",
 		     url: url,
-		     success: function(data){      	        
+		     success: function(data){      	 
+		    	 if(data.totalItems != 0){ // Si le livre existe
 		        	var book = data.items[0].volumeInfo;
 		        	var dataPost = {};
 		        	dataPost["isbn"] = book.industryIdentifiers[0].identifier;
 		        	dataPost["title"] = book.title;
-		        	dataPost["authors"] = book.authors[0];	
+		        	dataPost["authors"] = book.authors;	
 					dataPost["publishedDate"] = book.publishedDate;
 					console.log(dataPost);
-					displayDataFromAPIintoModal(data);
+					displayDataFromAPIintoModal(data, dataPost);
+		    	 } else {
+		    		 var tag = '<div class="chip">'
+		    			    + 'This book doesn\'t exist. Switch to "By hand" to it manually'
+		    			    + '<i class="material-icons">close</i></div>';
+		    				$("#isbn").after(tag);
+		    	 }
 		     }
 		});
 	} else {
@@ -105,13 +94,37 @@ function getDataFromGoogleAPI(isbn){
  * Display the modal with the information regarding the book
  * @param data
  */
-function displayDataFromAPIintoModal(data){
+function displayDataFromAPIintoModal(data, dataPost){
 	var book = data.items[0].volumeInfo;
 	$("#modalTitle").html(book.title);
 	console.log(book.title);
-	var content = "<img src='" + book.imageLinks.thumbnail + "' />"
+	var content = "<img id='imgBook' src='" + book.imageLinks.thumbnail + "' />"
 		+ "<p> Authors : " + book.authors + "</p>";
 	
 	$("#modalContent").html(content);
-	$('#modal1').openModal();         
+	$('#modal1').openModal();   
+	
+	$("#savingBooks").click(function(){
+		saveBookToDB(dataPost);
+	});
+}
+
+/**
+ * Save the researched book onto the DB
+ * @param data
+ */
+function saveBookToDB(dataPost){
+	console.log(dataPost);
+	$.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        url: "/books/addNewBook",
+        data: JSON.stringify(dataPost),
+        success : function(dataPost) {
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+	    }
+	});
+	$('#modal1').closeModal(); 
 }
