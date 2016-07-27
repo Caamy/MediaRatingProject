@@ -2,8 +2,10 @@ package medias.entity;
 
 import java.util.Arrays;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,10 @@ public class Books {
 	private String title;
 	private String[] authors;
 	private String publishedDate;
+
+	@Lob
+	@Column( length = 100000 )
+	private String description;
 	private float ratings;
 	private String note;
 	
@@ -53,16 +59,23 @@ public class Books {
 	public void setAuthors(String[] authors) {
 		this.authors = authors;
 	}
-
+	
 	public String getPublishedDate() {
 		return publishedDate;
 	}
 
-	public void setPublishDate(String publishedDate) {
+	public void setPublishedDate(String publishedDate) {
 		this.publishedDate = publishedDate;
 	}
-	
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public float getRatings() {
 		return ratings;
 	}
@@ -82,8 +95,7 @@ public class Books {
 	@Override
 	public String toString() {
 		return "Books [isbn=" + isbn + ", title=" + title + ", authors=" + Arrays.toString(authors) + ", publishedDate="
-				+ publishedDate + "]";
+				+ publishedDate + ", description=" + description + ", ratings=" + ratings + ", note=" + note + "]";
 	}
-	
-	
+
 }

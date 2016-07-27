@@ -12,6 +12,17 @@
 	margin-left : 15px;
 }
 
+#okCustom {
+	float : right;
+	margin-right: 20px;	
+	margin-topt: 15px;	
+	margin-bottom: 20px;	
+}
+
+.pModal {
+	margin:10px;
+}
+
 .switch {
 	padding-bottom:8px;
 }

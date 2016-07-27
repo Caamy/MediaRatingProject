@@ -46,8 +46,10 @@ function displaySwitchOption(){
 	            + '<label for="authors">Authors</label></div>'
 	            + '<div class="input-field col s2">' 
 	            + '<input id="publishedDate" type="text" class="validate"/>'
-	            + '<label for="publishedDate">Published date</label></div>'
-	            + '<a id="okCustom" class="waves-effect waves-light btn">OK</a></div>';
+	            + '<label for="publishedDate">Published date</label></div></div>'
+	            + '<div class="input-field col s12"><textarea id="description" class="materialize-textarea">'
+	            + '</textarea><label for="description">Description</label></div>'
+	            + '<a id="okCustom" class="waves-effect waves-light btn">OK</a>';
 			$("#addingBookChoice").html(addingChoice);
 		}
 	});	
@@ -60,20 +62,13 @@ function displaySwitchOption(){
 function getDataFromGoogleAPI(isbn){
 	if(isbn != "") {
 		var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
-		$.ajax({ 
+		var request = $.ajax({ 
 		     type: "GET",
 		     dataType: "json",
 		     url: url,
 		     success: function(data){      	 
 		    	 if(data.totalItems != 0){ // Si le livre existe
-		        	var book = data.items[0].volumeInfo;
-		        	var dataPost = {};
-		        	dataPost["isbn"] = book.industryIdentifiers[0].identifier;
-		        	dataPost["title"] = book.title;
-		        	dataPost["authors"] = book.authors;	
-					dataPost["publishedDate"] = book.publishedDate;
-					console.log(dataPost);
-					displayDataFromAPIintoModal(data, dataPost);
+					displayDataFromAPIintoModal(data);
 		    	 } else {
 		    		 var tag = '<div class="chip">'
 		    			    + 'This book doesn\'t exist. Switch to "By hand" to it manually'
@@ -82,6 +77,7 @@ function getDataFromGoogleAPI(isbn){
 		    	 }
 		     }
 		});
+		//
 	} else {
 		var tag = '<div class="chip">'
 	    + 'Isbn cannot be empty. Please type a number in.'
@@ -94,37 +90,54 @@ function getDataFromGoogleAPI(isbn){
  * Display the modal with the information regarding the book
  * @param data
  */
-function displayDataFromAPIintoModal(data, dataPost){
+function displayDataFromAPIintoModal(data){
 	var book = data.items[0].volumeInfo;
+
 	$("#modalTitle").html(book.title);
 	console.log(book.title);
 	var content = "<img id='imgBook' src='" + book.imageLinks.thumbnail + "' />"
-		+ "<p> Authors : " + book.authors + "</p>";
+		+ "<p class='pModal'><b> Authors :</b> " + book.authors + "</p>"
+		+ "<p class='pModal'><b> Isbn : </b>" + book.industryIdentifiers[0].identifier + "</p>"
+		+ "<p class='pModal'><b> Page count :</b> " + book.pageCount + "</p>"
+		+ "<p class='pModal'><b> Description : </b>" + book.description + "</p>";
 	
 	$("#modalContent").html(content);
 	$('#modal1').openModal();   
 	
 	$("#savingBooks").click(function(){
+    	var dataPost = {};
+    	dataPost["isbn"] = book.industryIdentifiers[0].identifier;
+    	dataPost["title"] = book.title;
+    	dataPost["authors"] = book.authors;	
+		dataPost["publishedDate"] = book.publishedDate;
+		dataPost["description"] = book.description;
 		saveBookToDB(dataPost);
+	});
+	
+	$("#cancelSaving").click(function(){
+		//location.reload();
 	});
 }
 
 /**
- * Save the researched book onto the DB
+ * Save the researched book or the created entry onto the DB
  * @param data
  */
 function saveBookToDB(dataPost){
 	console.log(dataPost);
-	$.ajax({
+	var requestSaving = $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
         url: "/books/addNewBook",
         data: JSON.stringify(dataPost),
         success : function(dataPost) {
+        	location.reload();
+        	$('#modal1').closeModal(); 
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 	    }
 	});
-	$('#modal1').closeModal(); 
+	
+	
 }
