@@ -19,7 +19,7 @@ $(document).ready(function() {
  * ou la création d'un livre à partir de 0
  */
 function displaySwitchOption(){
-	$("#bookSwitch").on("click", function(){
+	$("#bookSwitch").unbind('click').bind('click',function() {
 		if($(this).prop('checked') == false){
 			var addingChoice = '<div class="row">' 
             + '<div class="input-field col s10">' 
@@ -31,8 +31,7 @@ function displaySwitchOption(){
             
             $("#okIsbn").unbind('click').bind('click',function() {
         		getDataFromGoogleAPI($("#isbn").val());
-        	});
-            
+        	});    
 		} else {
 			var addingChoice = '<div class="row">' 
 	            + '<div class="input-field col s2">' 
@@ -62,7 +61,7 @@ function displaySwitchOption(){
 function getDataFromGoogleAPI(isbn){
 	if(isbn != "") {
 		var url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
-		var request = $.ajax({ 
+		$.ajax({ 
 		     type: "GET",
 		     dataType: "json",
 		     url: url,
@@ -77,7 +76,6 @@ function getDataFromGoogleAPI(isbn){
 		    	 }
 		     }
 		});
-		//
 	} else {
 		var tag = '<div class="chip">'
 	    + 'Isbn cannot be empty. Please type a number in.'
@@ -94,7 +92,6 @@ function displayDataFromAPIintoModal(data){
 	var book = data.items[0].volumeInfo;
 
 	$("#modalTitle").html(book.title);
-	console.log(book.title);
 	var content = "<img id='imgBook' src='" + book.imageLinks.thumbnail + "' />"
 		+ "<p class='pModal'><b> Authors :</b> " + book.authors + "</p>"
 		+ "<p class='pModal'><b> Isbn : </b>" + book.industryIdentifiers[0].identifier + "</p>"
@@ -102,10 +99,11 @@ function displayDataFromAPIintoModal(data){
 		+ "<p class='pModal'><b> Description : </b>" + book.description + "</p>";
 	
 	$("#modalContent").html(content);
-	$('#modal1').openModal();   
+	$('#modal1').openModal({
+		dismissible: false
+	});
 	
 	$("#savingBooks").unbind('click').bind('click',function() {
-		console.log("clicSave");
     	var dataPost = {};
     	dataPost["isbn"] = book.industryIdentifiers[0].identifier;
     	dataPost["title"] = book.title;
@@ -116,9 +114,7 @@ function displayDataFromAPIintoModal(data){
 	});
 	
 	$("#cancelSaving").unbind('click').bind('click',function() {
-		console.log("clicCancel");
 		$('#modal1').closeModal(); 
-		//location.reload();
 	});
 }
 
@@ -127,8 +123,7 @@ function displayDataFromAPIintoModal(data){
  * @param data
  */
 function saveBookToDB(dataPost){
-	console.log(dataPost);
-	var requestSaving = $.ajax({
+	$.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
@@ -136,11 +131,6 @@ function saveBookToDB(dataPost){
         data: JSON.stringify(dataPost),
         success : function(dataPost) {
         	$('#modal1').closeModal(); 
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-			$('#modal1').closeModal(); 
-	    }
+		}
 	});
-	
-	
 }
