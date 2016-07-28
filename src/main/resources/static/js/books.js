@@ -8,7 +8,7 @@ $(document).ready(function() {
 	displaySwitchOption();
 	
 	// Chercher dans l'API google
-	$("#okIsbn").click(function(){
+	$("#okIsbn").unbind('click').bind('click',function() {
 		getDataFromGoogleAPI($("#isbn").val());
 	});
 
@@ -29,7 +29,7 @@ function displaySwitchOption(){
             + '<a id="okIsbn" class="waves-effect waves-light btn">OK</a></div>';
             $("#addingBookChoice").html(addingChoice);
             
-            $("#okIsbn").click(function(){
+            $("#okIsbn").unbind('click').bind('click',function() {
         		getDataFromGoogleAPI($("#isbn").val());
         	});
             
@@ -71,7 +71,7 @@ function getDataFromGoogleAPI(isbn){
 					displayDataFromAPIintoModal(data);
 		    	 } else {
 		    		 var tag = '<div class="chip">'
-		    			    + 'This book doesn\'t exist. Switch to "By hand" to it manually'
+		    			    + 'This book doesn\'t exist. Switch to "By hand" to add it manually'
 		    			    + '<i class="material-icons">close</i></div>';
 		    				$("#isbn").after(tag);
 		    	 }
@@ -104,7 +104,8 @@ function displayDataFromAPIintoModal(data){
 	$("#modalContent").html(content);
 	$('#modal1').openModal();   
 	
-	$("#savingBooks").click(function(){
+	$("#savingBooks").unbind('click').bind('click',function() {
+		console.log("clicSave");
     	var dataPost = {};
     	dataPost["isbn"] = book.industryIdentifiers[0].identifier;
     	dataPost["title"] = book.title;
@@ -114,7 +115,9 @@ function displayDataFromAPIintoModal(data){
 		saveBookToDB(dataPost);
 	});
 	
-	$("#cancelSaving").click(function(){
+	$("#cancelSaving").unbind('click').bind('click',function() {
+		console.log("clicCancel");
+		$('#modal1').closeModal(); 
 		//location.reload();
 	});
 }
@@ -132,10 +135,10 @@ function saveBookToDB(dataPost){
         url: "/books/addNewBook",
         data: JSON.stringify(dataPost),
         success : function(dataPost) {
-        	location.reload();
         	$('#modal1').closeModal(); 
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
+			$('#modal1').closeModal(); 
 	    }
 	});
 	
